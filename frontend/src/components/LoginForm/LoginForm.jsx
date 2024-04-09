@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 
-export const LoginForm = () => {
+export const LoginForm = ({ onLogin, onRegister }) => {
 
     const [active, setActive] = useState('login')
 
-    const [loginData, setLoginData] = useState({ login: "", password: "" })
-    const [registerData, setRegisterData] = useState({ firstName: "", lastName: "", login: "", password: "" });
+    const [loginData, setLoginData] = useState({ email: "", password: "" })
+    const [registerData, setRegisterData] = useState({ email: "", password: "", role: "ADMIN" });
 
 
     const changeLoginInfo = (event) => {
@@ -25,7 +25,7 @@ export const LoginForm = () => {
     }
     const onSubmitRegister = (e) => {
         e.preventDefault()
-        console.log(registerData)
+        onRegister(registerData.email, registerData.password, registerData.role)
     }
     return (
         <div className="row justify-content-center">
@@ -46,8 +46,8 @@ export const LoginForm = () => {
                         <form onSubmit={onSubmitLogin}>
 
                             <div className="form-outline mb-4">
-                                <label className="form-label" htmlFor="loginName">Username</label>
-                                <input type="login" id="loginName" name="login" className="form-control" value={loginData.login} onChange={changeLoginInfo} />
+                                <label className="form-label" htmlFor="loginName">email</label>
+                                <input type="login" id="loginName" name="email" className="form-control" value={loginData.email} onChange={changeLoginInfo} />
                             </div>
 
                             <div className="form-outline mb-4">
@@ -63,25 +63,20 @@ export const LoginForm = () => {
                         <form onSubmit={onSubmitRegister}>
 
                             <div className="form-outline mb-4">
-                                <label className="form-label" htmlFor="firstName">First name</label>
-                                <input type="text" id="firstName" name="firstName" className="form-control" onChange={changeRegisterInfo} />
+                                <label className="form-label" htmlFor="email">email</label>
+                                <input type="text" id="email" name="email" className="form-control" onChange={changeRegisterInfo} />
+                            </div>
+
+
+                            <div className="form-outline mb-4">
+                                <label className="form-label" htmlFor="password">Password</label>
+                                <input type="password" id="password" name="password" className="form-control" onChange={changeRegisterInfo} />
                             </div>
 
                             <div className="form-outline mb-4">
-                                <label className="form-label" htmlFor="lastName">Last name</label>
-                                <input type="text" id="lastName" name="lastName" className="form-control" onChange={changeRegisterInfo} />
+                                <label className="form-label" htmlFor="role">role</label>
+                                <input type="text" id="role" name="role" className="form-control" onChange={changeRegisterInfo} />
                             </div>
-
-                            <div className="form-outline mb-4">
-                                <label className="form-label" htmlFor="login">Username</label>
-                                <input type="text" id="login" name="login" className="form-control" onChange={changeRegisterInfo} />
-                            </div>
-
-                            <div className="form-outline mb-4">
-                                <label className="form-label" htmlFor="registerPassword">Password</label>
-                                <input type="password" id="registerPassword" name="password" className="form-control" onChange={changeRegisterInfo} />
-                            </div>
-
                             <button type="submit" className="btn btn-primary btn-block mb-3">Sign in</button>
                         </form>
                     </div>
